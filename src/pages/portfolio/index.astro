@@ -1,8 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import {getCollection} from "astro:content";
-import ArticleCard from "../../components/ArticleCard.astro";
-import PortfolioCard from "../../components/PortfolioCard.astro";
+import PortfolioCard from "../../components/portfolio/PortfolioCard.astro";
 
 const portfolio = await getCollection('portfolio');
 

@@ -1,0 +1,54 @@
+---
+import '../css/style.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import {SITE_DESCRIPTION} from "../const";
+
+const {frontmatter} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="theme-color" content="#000000">
+    <meta name="generator" content={Astro.generator}/>
+    <meta name="description" content={SITE_DESCRIPTION}/>
+    <title>{frontmatter.title} | {SITE_DESCRIPTION}</title>
+    <script is:inline>
+        const body = document.querySelector('html');
+        const colorMode = localStorage.getItem('colorMode');
+        const themeToggle = document.querySelector('.theme-toggle');
+
+        if (colorMode === 'dark') {
+            body.className = 'dark'
+        } else {
+            body.classList.remove('dark');
+        }
+    </script>
+</head>
+<body>
+<Navbar />
+<main>
+    <h1>{frontmatter.title}</h1>
+    <div>
+        <span class="font-light text-sm">{frontmatter.author} • {frontmatter.date} • {frontmatter.description}</span>
+    </div>
+    <div class="my-10 flex items-start justify-start">
+        <img class="w-[360px]" src={frontmatter.logo} alt="logo" />
+    </div>
+    <div class="post">
+        <slot/>
+    </div>
+</main>
+<Footer/>
+</body>
+</html>

@@ -63,6 +63,14 @@
         @apply py-2 min-w-[18rem] md:max-w-[35rem];
     }
 
+    a {
+        @apply text-zinc-200;
+    }
+
+    a:hover {
+        @apply underline underline-offset-4;
+    }
+
     .site-logo {
         @apply w-5;
     }
