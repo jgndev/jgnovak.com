@@ -1,0 +1,17 @@
+---
+const {slug, logo, description, title, date} = Astro.props;
+---
+<a href={`/articles/${slug}`} aria-label={description}>
+    <div class="grayscale p-4 m-2 w-[360px] flex flex-col items-center justify-center space-y-2 dark:border dark:border-zinc-800/40 rounded-md shadow-md">
+        <div>
+            <img class="w-[300px]" src={logo}
+                 alt={description}/>
+        </div>
+        <div>
+            <span class="font-bold text-xl uppercase">{title}</span>
+        </div>
+        <div class="pb-2">
+            <span class="font-light text-sm">{date}</span>
+        </div>
+    </div>
+</a>

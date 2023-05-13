@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {getCollection} from "astro:content";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = await getCollection('projects');
+---
+
+<Layout title="Projects">
+    <main>
+        <section class="card-tiles">
+            {
+                projects.map((project) => (
+                        <ProjectCard
+                                slug={project.data.path}
+                                logo={project.data.logo}
+                                description={project.data.description}
+                                title={project.data.title}
+                                date={project.data.date}/>
+                ))
+            }
+        </section>
+    </main>
+</Layout>

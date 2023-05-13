@@ -1,0 +1,26 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {getCollection} from "astro:content";
+import ArticleCard from "../../components/ArticleCard.astro";
+import PortfolioCard from "../../components/PortfolioCard.astro";
+
+const portfolio = await getCollection('portfolio');
+
+---
+
+<Layout title="Portfolio">
+    <main>
+        <section class="card-tiles">
+            {
+                portfolio.map((project) => (
+                        <PortfolioCard
+                                slug={project.data.path}
+                                logo={project.data.logo}
+                                description={project.data.description}
+                                title={project.data.title}
+                                date={project.data.date}/>
+                ))
+            }
+        </section>
+    </main>
+</Layout>

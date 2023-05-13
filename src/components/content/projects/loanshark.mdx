@@ -1,0 +1,44 @@
+---
+layout: ../../layouts/PostLayout.astro
+title: Loan Shark
+author: Jeremy Novak
+description: Loan Calculator built with React and Go deployed to Azure
+date: May 7th 2023
+path: loanshark
+logo: https://jgnportfoliostorage.blob.core.windows.net/portfolio/loanshark-logo.svg
+---
+import LoanSharkStack from '../../components/projects/LoanSharkStack.astro';
+import GitHubButton from '../../components/GitHubButton.astro';
+
+<a href="https://loanshark.jgnovak.net" target="blank" rel="noreferrer">Loan Shark</a>
+is a Loan Calculator built from two decoupled parts. A Back End REST API endpoint
+written in <a href="https://go.dev" target="_blank" rel="noreferrer">Go</a> deployed to
+<a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-get-started?pivots=programming-language-javascript"
+   target="_blank" rel="noreferrer">Azure Functions</a>,
+and a <a href="https://react.dev" target="_blank" rel="noreferrer">React</a> App written in
+<a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">TypeScript</a> deployed to
+<a href="https://learn.microsoft.com/en-us/azure/static-web-apps/overview" target="_blank" rel="noreferrer">Azure Static
+    Web Apps</a>.
+
+## Tech Stack
+<LoanSharkStack/>
+
+## Read the Article
+
+You can read my technical article about the creation of Loan Shark <a href="https://jgnovak.com/articles/creating-loanshark" target="_blank" rel="noreferrer">here</a>.
+
+## View the Source Code
+<div class="flex items-center space-x-4 my-8">
+    <GitHubButton text="Back End Source" url="https://github.com/jgnovakdev/loanshark-api"
+                  description="Loan Shark Back End"/>
+    <GitHubButton text="Front End Source" url="https://github.com/jgnovakdev/loanshark"
+                  description="Loan Shark Front End"/>
+</div>
+
+## Try the App
+
+<a href="https://loanshark.jgnovak.net" target="_blank" rel="noreferrer">
+    <img class="w-[50%]" src="https://jgnportfoliostorage.blob.core.windows.net/portfolio/loanshark-screenshot.png"
+         alt="Loan Shark Loan Calculator"/>
+</a>
+

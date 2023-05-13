@@ -1,0 +1,82 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+    body {
+        @apply overscroll-none h-[100%] text-zinc-100/70 bg-zinc-950;
+    }
+
+    main {
+        @apply px-8 mt-14 mx-auto w-full md:mx-12;
+    }
+
+    nav {
+        @apply sticky z-50 top-0 mx-2 mt-2 p-4 md:mx-12 md:mt-4 flex items-center justify-between border border-zinc-700/40 backdrop-blur-xl rounded-md shadow-md;
+    }
+
+    nav > div > ul {
+        @apply lowercase m-2 flex space-x-6 justify-end;
+    }
+
+    nav > div > ul > li > a {
+        @apply p-2 transition-all delay-100 text-zinc-500;
+    }
+
+    nav > ul > li > a:hover {
+        @apply text-black dark:text-white;
+    }
+
+    nav > ul > li > a:active {
+        @apply transition-all delay-100 underline underline-offset-8 text-black dark:text-zinc-50;
+    }
+
+    footer {
+        @apply mx-2 mb-8 p-4 md:mx-12 md:mt-4 text-sm flex justify-between text-zinc-400 border border-zinc-700/40 rounded-md shadow-md;
+    }
+
+    h1 {
+        @apply py-10 uppercase text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-zinc-50 to-zinc-700;
+    }
+
+    h2 {
+        @apply pb-6 ml-2 mt-8 uppercase text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-zinc-800 to-transparent dark:bg-gradient-to-r dark:from-zinc-50 dark:to-transparent;
+    }
+
+    h3 {
+        @apply py-2 ml-2 my-2 uppercase text-xl font-semibold text-zinc-700 dark:text-zinc-200;
+    }
+
+    h4 {
+        @apply ml-2 my-2 uppercase text-zinc-500 dark:text-zinc-400;
+    }
+
+    h5 {
+        @apply ml-2 my-2 uppercase text-zinc-500 dark:text-zinc-400;
+    }
+
+    p {
+        @apply py-2 min-w-[18rem] md:min-w-[40rem] md:max-w-[650rem];
+    }
+
+    .site-logo {
+        @apply w-5;
+    }
+
+    .black-button {
+        @apply p-4 w-[240px] flex space-x-4 items-center justify-center uppercase border border-zinc-700/40 text-zinc-300 bg-zinc-800 rounded-md shadow-md disabled:bg-zinc-700 disabled:cursor-not-allowed dark:disabled:bg-zinc-700;
+    }
+
+    .black-button > svg {
+        @apply fill-zinc-200;
+    }
+
+    .black-button:hover {
+        @apply transition-all delay-100 ease-in-out text-white bg-black dark:bg-zinc-800/40 disabled:bg-zinc-700 disabled:text-zinc-200 dark:disabled:bg-zinc-700;
+    }
+
+    .black-button:hover > svg {
+        @apply transition-all delay-100 ease-in-out fill-white disabled:fill-zinc-200;
+    }
+
+}
