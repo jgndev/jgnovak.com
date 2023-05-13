@@ -1,0 +1,21 @@
+---
+import {getCollection} from "astro:content";
+import ProjectCard from "../projects/ProjectCard.astro";
+const projects = await getCollection('projects');
+const sortedProjects = projects.sort((a, b) => b.data.date - a.data.date);
+const latestProjects = sortedProjects.slice(0, 3);
+---
+
+<section class="">
+    <h2>Recent Projects</h2>
+    {
+        latestProjects.map((project) => (
+                <ProjectCard
+                        slug={project.data.path}
+                        logo={project.data.logo}
+                        description={project.data.description}
+                        title={project.data.title}
+                        date={project.data.date}/>
+        ))
+    }
+</section>

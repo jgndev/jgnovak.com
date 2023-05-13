@@ -2,11 +2,14 @@
 import {getCollection} from "astro:content";
 import ArticleCard from "../articles/ArticleCard.astro";
 const articles = await getCollection('articles');
+const sortedArticles = articles.sort((a, b) => b.data.date - a.data.date);
+const latestArticles = sortedArticles.slice(0, 3);
 ---
 
 <section class="">
+    <h2>Recent Articles</h2>
     {
-        articles.map((article) => (
+        latestArticles.map((article) => (
                 <ArticleCard
                         slug={article.data.path}
                         logo={article.data.logo}

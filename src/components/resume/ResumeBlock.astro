@@ -1,0 +1,95 @@
+---
+import '../../css/style.css';
+import DownloadButton from './DownloadResume.astro';
+import PastEmployer from './Employer.astro';
+import LanguageBlock from './LanguageBlock.astro';
+import FrameworksBlock from './FrameworksBlock.astro';
+import CloudBlock from './CloudBlock.astro';
+import ToolsBlock from './ToolsBlock.astro';
+import GeneralBlock from './GeneralBlock.astro';
+import ProjectBlock from "./ProjectBlock.astro";
+---
+
+<div class="section">
+    <div class="grid grid-cols-1">
+        <h1>Jeremy's Resume</h1>
+        <div>
+            <p>
+                Jeremy is an engineer with over twenty years of experience in Information Technology and
+                a work history of solving large problems that improve the business.
+            </p>
+            <DownloadButton text="Download Resume" url=""/>
+        </div>
+        <div>
+            <div>
+                <h2 class="secondary-header">
+                    Projects
+                </h2>
+                <ProjectBlock
+                        title="Ushr"
+                        stack="Azure Functions, CosmosDB, Azure Static Web Apps, TypeScript, React, Tailwind CSS"
+                        description="URL shortening full stack application deployed to Azure for turning long difficult to read URLS into something very short"
+                        link="https://ushr.dev"
+                        repo="https://github.com/jgndev/ushr"
+                />
+                <ProjectBlock
+                    title="Loan Shark"
+                    stack="Azure Functions, Go, Azure Static Web Apps, TypeScript, React, Redux Toolkit, Tailwind CSS"
+                    description="Loan Calculator full stack application deployed to Azure for estimating the cost of a loan and payment schedule."
+                    link="https://loanshark.jgnovak.net"
+                    repo="https://github.com/jgndev/loanshark"
+                />
+                <ProjectBlock
+                        title="PWB0T"
+                        stack="Vercel Serverless Functions, Vercel, TypeScript, React"
+                        description="PWB0T is a full stack application written in TypeScript and React deployed to Vercel"
+                        link="https://pwbot.jgnovak.com"
+                        repo="https://github.com/jgndev/pwbot"
+                />
+            </div>
+            <div>
+                <h2>
+                    Skills
+                </h2>
+                <LanguageBlock/>
+                <FrameworksBlock/>
+                <CloudBlock/>
+                <ToolsBlock/>
+                <GeneralBlock/>
+            </div>
+            <div>
+                <h2 class="secondary-header">
+                    Work Experience
+                </h2>
+                <!-- Freelance -->
+                <PastEmployer
+                        title="Freelance Developer"
+                        company="Self"
+                        start="JAN 2023"
+                        end="Present"
+                        description="Helping small and medium businesses create optimal websites to reach their audience, find new clients, and improve sales."/>
+                <!-- Microsoft -->
+                <PastEmployer
+                        title="Azure Support Engineer"
+                        company="Microsoft"
+                        start="APR 2022"
+                        end="JAN 2023"
+                        description="Handled cases of all severities for customers using Microsoft Azure App Services providing a fast solution to issues."/>
+                <!-- Worley -->
+                <PastEmployer
+                        title="System Administrator"
+                        company="Worley"
+                        start="NOV 2008"
+                        end="APR 2022"
+                        description="Revolutionized how desktop imaging is done by developing a solution that saves 5 hours per new workstation, or 6,000 hours annually."/>
+                <!-- Micron Technology -->
+                <PastEmployer
+                        title="System Administrator"
+                        company="Micron Technology"
+                        start="JUN 2001"
+                        end="NOV 2008"
+                        description="Reduced Linux imaging times by 30%, achieving a competitive advantage for the business in standing up new research and development projects."/>
+            </div>
+        </div>
+    </div>
+</div>

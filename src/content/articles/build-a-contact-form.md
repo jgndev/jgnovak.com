@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/PostLayout.astro
-title: Let's build a contact form
+title: Building a contact form
 author: Jeremy Novak
 description: Building a Contact Form for my Portfolio site
 date: May 9th 2023
