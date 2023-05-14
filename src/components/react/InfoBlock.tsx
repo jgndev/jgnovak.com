@@ -61,7 +61,7 @@ function InfoBlock() {
                     </path>
                 </svg>
                 <span ref={textRef} id="email-address" className="contact-span">
-                    jeremy@jgnovak.net
+                    jeremy@jgnovak.com
                 </span>
                 <button onClick={copyToClipboard} className="clipboard" aria-label="Copy to clipboard">
                     <svg
