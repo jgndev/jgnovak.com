@@ -8,14 +8,16 @@ const latestArticles = sortedArticles.slice(0, 3);
 
 <section class="">
     <h2>Recent Articles</h2>
-    {
-        latestArticles.map((article) => (
-                <ArticleCard
-                        slug={article.data.path}
-                        logo={article.data.logo}
-                        description={article.data.description}
-                        title={article.data.title}
-                        date={article.data.date}/>
-        ))
-    }
+    <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
+        {
+            latestArticles.map((article) => (
+                    <ArticleCard
+                            slug={article.data.path}
+                            logo={article.data.logo}
+                            description={article.data.description}
+                            title={article.data.title}
+                            date={article.data.date}/>
+            ))
+        }
+    </div>
 </section>

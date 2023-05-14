@@ -2,7 +2,7 @@
 const {slug, logo, description, title, date} = Astro.props;
 ---
 <a href={`/projects/${slug}`} aria-label={description}>
-    <div class="p-2 m-2 flex flex-col items-center justify-center space-y-2 border border-zinc-700/30 rounded-md shadow-md">
+    <div class="p-2 m-2 grayscale hover:grayscale-0 hover:duration-100 hover:ease-in-out flex flex-col items-center justify-center space-y-2 border border-zinc-700/30 rounded-md shadow-lg">
         <div>
             <img class="w-[300px]" src={logo}
                  alt={description}/>

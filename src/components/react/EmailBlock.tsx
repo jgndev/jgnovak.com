@@ -126,9 +126,10 @@ function EmailBlock() {
     return (
         <div className="contact-form-right">
             <form onSubmit={handleSubmit} className="w-full p-4" id="contact-form">
-                <div>
+                <div className="flex flex-col">
                     <label htmlFor="name">Name</label>
                     <input
+                        className="py-1 w-full"
                         type="text"
                         id="name"
                         name="name"
@@ -143,9 +144,10 @@ function EmailBlock() {
                 </div>
 
                 <div className="my-6">
-                    <div className="relative mt-6">
+                    <div className="relative mt-6 flex flex-col">
                         <label htmlFor="email">Email</label>
                         <input
+                            className="py-1 w-full"
                             type="text"
                             id="email"
                             name="email"
@@ -161,9 +163,10 @@ function EmailBlock() {
                 </div>
 
                 <div className="my-6">
-                    <div className="relative mt-6">
+                    <div className="relative mt-6 flex flex-col">
                         <label htmlFor="phone" className=""> Phone Number (Optional)</label>
                         <input
+                            className="py-1 w-full"
                             type="text"
                             id="phone"
                             name="phone"
@@ -174,8 +177,9 @@ function EmailBlock() {
                 </div>
 
                 <div className="my-6">
-                    <label htmlFor="message" className="block mb-2 text-sm font-medium">Message</label>
+                    <label htmlFor="message" className="block mb-2 text-sm font-medium flex flex-col">Message</label>
                     <textarea
+                        className="w-full"
                         id="message"
                         name="message"
                         rows={6}
@@ -192,7 +196,7 @@ function EmailBlock() {
                 </div>
 
                 <div className="my-6">
-                    <button type="submit" disabled={!nameValid || !emailValid || !messageValid} className="black-button" aria-label="Send Message">
+                    <button type="submit" disabled={!nameValid || !emailValid || !messageValid} className="black-button w-full" aria-label="Send Message">
                         <svg className="w-[1.25em]" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                              viewBox="0 0 512 512">
                             <path
@@ -201,10 +205,10 @@ function EmailBlock() {
                         </svg>
                         <span>
                             {isSubmitting ?
-                                "SENDING..."
+                                "SENDING....."
                                 : nameValid && emailValid && messageValid
-                                ? "SEND MESSAGE"
-                                : "NOT READY TO SEND"
+                                ? "SEND Message"
+                                : "WAITING....."
                             }
                         </span>
                     </button>

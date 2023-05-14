@@ -4,6 +4,7 @@ import MainLockup from "../components/home/MainLockup.astro";
 import ArticleLockup from "../components/home/ArticleLockup.astro";
 import ProjectLockup from "../components/home/ProjectLockup.astro";
 import SkillsLockup from "../components/home/SkillsLockup.astro";
+import ContactForm from "../components/react/ContactForm";
 ---
 
 <Layout title="Home">
@@ -12,6 +13,7 @@ import SkillsLockup from "../components/home/SkillsLockup.astro";
 		<SkillsLockup />
 		<ProjectLockup />
 		<ArticleLockup />
+		<ContactForm client:visible/>
 	</main>
 </Layout>
 
