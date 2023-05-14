@@ -1,8 +1,9 @@
 ---
 const {text} = Astro.props;
-const resumeUrl = 'https://jgnovak-public-bucket.s3.amazonaws.com/everyone/jgnovak-resume.pdf';
+const resumeUrl = 'https://jgn-portfolio-bucket.s3.amazonaws.com/jgnovak-resume.pdf';
 ---
-<a class="black-button my-4" href={resumeUrl} download="jgnovak-resume.pdf" target="_blank" aria-label="Download Resume">
+<a class="black-button my-4" href={resumeUrl} download="jgnovak-resume.pdf" target="_blank"
+   aria-label="Download Resume">
     <svg
             class="w-6"
             xmlns="http://www.w3.org/2000/svg"
