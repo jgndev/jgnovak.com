@@ -1,4 +1,4 @@
-import {z, defineCollection} from "astro:content";
+import {defineCollection, z} from "astro:content";
 
 const articlesCollection = defineCollection({
     schema: z.object({
@@ -7,6 +7,7 @@ const articlesCollection = defineCollection({
         date: z.string(),
         logo: z.string(),
         path: z.string(),
+        shortPath: z.string(),
     }),
 });
 
@@ -17,6 +18,7 @@ const projectCollection = defineCollection({
         date: z.string(),
         logo: z.string(),
         path: z.string(),
+        shortPath: z.string(),
     }),
 });
 
@@ -27,6 +29,7 @@ const portfolioCollection = defineCollection({
         date: z.string(),
         logo: z.string(),
         path: z.string(),
+        shortPath: z.string(),
     }),
 });
 
