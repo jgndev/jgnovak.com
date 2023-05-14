@@ -6,7 +6,7 @@ description: Building a Contact Form for my Portfolio site
 date: May 9th 2023
 path: articles/build-a-contact-form
 shortPath: build-a-contact-form
-logo: https://jgn-portfolio-bucket.s3.amazonaws.com/loanshark-logo.svg
+logo: https://jgn-portfolio-bucket.s3.amazonaws.com/email-circle-logo.svg
 ---
 
 ## Background
