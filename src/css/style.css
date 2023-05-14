@@ -128,7 +128,7 @@
     }
 
     h2 {
-        @apply pb-6 ml-2 mt-8 uppercase text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-zinc-800 to-transparent dark:bg-gradient-to-r dark:from-zinc-50 dark:to-transparent;
+        @apply pb-6 ml-2 mt-8 uppercase text-3xl font-semibold text-zinc-300;
     }
 
     h3 {
@@ -184,7 +184,7 @@
     }
 
     .black-button {
-        @apply px-8 py-4 w-full md:max-w-[18rem] flex space-x-4 text-sm md:text-base items-center justify-center uppercase border border-zinc-700 text-zinc-200 bg-zinc-800 rounded-md shadow-md disabled:bg-zinc-700 disabled:cursor-not-allowed dark:disabled:bg-zinc-700;
+        @apply px-8 py-4 w-full min-w-full md:min-w-[18rem] md:max-w-[18rem] flex space-x-4 text-sm md:text-base items-center justify-center uppercase border border-zinc-700 text-zinc-200 bg-zinc-800 rounded-md shadow-md disabled:bg-zinc-700 disabled:cursor-not-allowed dark:disabled:bg-zinc-700;
     }
 
     .black-button > svg {
