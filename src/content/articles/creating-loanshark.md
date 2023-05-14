@@ -6,7 +6,7 @@ description: Building a Loan Calculator with Go and React on Azure
 date: May 7th 2023
 path: articles/creating-loanshark
 shortPath: creating-loanshark
-logo: https://jgnportfoliostorage.blob.core.windows.net/portfolio/loanshark-logo.svg
+logo: https://jgn-portfolio-bucket.s3.amazonaws.com/email-circle-logo.svg
 ---
 
 ## Background
@@ -878,7 +878,7 @@ something new or something written here or shared in the source code gave you an
 To view the live app deployed to Azure, click on the screenshot below to open it in a new tab.
 
 <a href="https://loanshark.jgnovak.net" target="_blank" rel="noreferrer" class="">
-<img class="w-[50%]" src="https://jgnportfoliostorage.blob.core.windows.net/portfolio/loanshark-screenshot.png" />
+<img class="w-[50%]" src="https://jgn-portfolio-bucket.s3.amazonaws.com/loanshark-screenshot.png" />
 </a>
 
 -JGN
