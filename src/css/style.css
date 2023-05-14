@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-        @apply overscroll-none h-[100%] text-zinc-100/70 bg-zinc-950;
+        @apply overscroll-none h-[100%] text-zinc-100/70 bg-zinc-900;
     }
 
     main {
@@ -99,5 +99,32 @@
     .brand-icon-block {
         @apply w-[100px] h-[100px] flex flex-col items-center justify-center;
     }
+
+    /*  Contact Form Section */
+    .contact-form {
+        @apply grid grid-cols-1 md:grid-cols-8;
+    }
+
+    .contact-span {
+        @apply text-sm md:text-base text-zinc-300;
+    }
+
+    .contact-form-left {
+        @apply col-span-4 pt-4 flex flex-col;
+    }
+
+    .contact-form-right {
+        @apply col-span-4 flex my-10 p-10 rounded-md bg-zinc-500/10 dark:bg-zinc-800/10 shadow-md;
+    }
+
+    .contact-form-right div {
+    }
+
+    .contact-form-icon {
+        @apply w-12 fill-zinc-300 dark:fill-zinc-50;
+    }
+
+
+
 
 }

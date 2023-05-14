@@ -50,7 +50,7 @@ function InfoBlock() {
                 <h2 className="secondary-header">Let's Connect</h2>
             </div>
             <div className="flex mt-10 p-4 space-x-6 items-center">
-                <svg className="icon" fill="currentColor" viewBox="0 0 512 512">
+                <svg className="contact-form-icon" fill="currentColor" viewBox="0 0 512 512">
                     <path
                         style={primaryStyle}
                         d="M380.7 185.8c5.1-6.7 4.2-16.2-2.1-21.8s-15.9-5.3-21.9 .7l-179 179-13 13c-3 3-4.7 7.1-4.7 11.3v8 56 48c0 13.2 8.1 25 20.3 29.8s26.2 1.6 35.2-8.1L284 427.7l-60-25V389.4L380.7 185.8z">
@@ -66,7 +66,7 @@ function InfoBlock() {
                 <button onClick={copyToClipboard} className="clipboard" aria-label="Copy to clipboard">
                     <svg
                         id="clipboard-icon"
-                        className="icon cursor-pointer"
+                        className="contact-form-icon cursor-pointer"
                         fill="currentColor"
                         viewBox="0 0 512 512">
                         <path
@@ -82,7 +82,7 @@ function InfoBlock() {
                 {showTooltip && <div className="tooltip">Copied!</div>}
             </div>
             <div className="flex mt-2 p-4 space-x-6 items-center">
-                <svg className="icon" fill="currentColor" viewBox="0 0 512 512">
+                <svg className="contact-form-icon" fill="currentColor" viewBox="0 0 512 512">
                     <path
                         style={primaryStyle}
                         d="M256 96c-13.3 0-24 10.7-24 24V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24z">
@@ -98,7 +98,7 @@ function InfoBlock() {
                 </span>
             </div>
             <div className="flex mt-2 p-4 space-x-6 items-center">
-                <svg className="icon" fill="currentColor" viewBox="0 0 384 512">
+                <svg className="contact-form-icon" fill="currentColor" viewBox="0 0 384 512">
                     <path
                         style={primaryStyle}
                         d="M192 144a48 48 0 1 0 0 96 48 48 0 1 0 0-96z">
