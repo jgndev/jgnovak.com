@@ -4,7 +4,7 @@ title: Creating Loan Shark
 author: Jeremy Novak
 description: Building a Loan Calculator with Go and React on Azure
 date: May 7th 2023
-path: 'articles/creating-loanshark'
+path: articles/creating-loanshark
 logo: https://jgnportfoliostorage.blob.core.windows.net/portfolio/loanshark-logo.svg
 ---
 
