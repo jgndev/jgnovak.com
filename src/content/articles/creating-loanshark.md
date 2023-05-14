@@ -4,30 +4,42 @@ title: Creating Loan Shark
 author: Jeremy Novak
 description: Building a Loan Calculator with Go and React on Azure
 date: May 7th 2023
-path: creating-loanshark
+path: 'articles/creating-loanshark'
 logo: https://jgnportfoliostorage.blob.core.windows.net/portfolio/loanshark-logo.svg
 ---
 
 ## Background
 
-<a href="https://loanshark.jgnovak.net" target="_blank" rel="noreferrer">Loan Shark</a> is a portfolio project I built to
-showcase a combination of <a href="https://learn.microsoft.com/en-us/azure/azure-functions/" target="_blank" rel="noreferrer">Azure Functions</a> and <a href="https://go.dev" target="_blank" rel="noreferrer">Go</a> for the Back End, 
-and <a href="https://react.dev" target="_blank" rel="noreferrer">React</a> with <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">TypeScript</a> and <a href="https://redux-toolkit.js.org/" target="_blank" rel="noreferrer">Redux Toolkit</a> 
-deployed to <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/overview" target="_blank" rel="noreferrer">Azure Static Web Apps</a> for the Front End.
+<a href="https://loanshark.jgnovak.net" target="_blank" rel="noreferrer">Loan Shark</a> is a portfolio project I built
+to
+showcase a combination
+of <a href="https://learn.microsoft.com/en-us/azure/azure-functions/" target="_blank" rel="noreferrer">Azure
+Functions</a> and <a href="https://go.dev" target="_blank" rel="noreferrer">Go</a> for the Back End,
+and <a href="https://react.dev" target="_blank" rel="noreferrer">React</a>
+with <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">TypeScript</a>
+and <a href="https://redux-toolkit.js.org/" target="_blank" rel="noreferrer">Redux Toolkit</a>
+deployed to <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/overview" target="_blank" rel="noreferrer">
+Azure Static Web Apps</a> for the Front End.
 
 I chose to decouple the Front End and Back End for this project but could have kept all calculation logic in the
-React app, and it would have worked just as well and would be *faster* after periods of inactivity. Many serverless things like
-Azure Functions have a <a href="https://azure.microsoft.com/en-us/blog/understanding-serverless-cold-start/" target="_blank" rel="noreferrer">
-cold start time</a> after periods of inactivity to save on cost among other reasons. Once the Azure Function is warmed up the delay becomes so minimal it may not even
-be perceptible to a user, but on the first request after a period of inactivity you will notice cold start time leaving you unsure if you clicked the button before the data suddenly pops in.
+React app, and it would have worked just as well and would be *faster* after periods of inactivity. Many serverless
+things like
+Azure Functions have
+a <a href="https://azure.microsoft.com/en-us/blog/understanding-serverless-cold-start/" target="_blank" rel="noreferrer">
+cold start time</a> after periods of inactivity to save on cost among other reasons. Once the Azure Function is warmed
+up the delay becomes so minimal it may not even
+be perceptible to a user, but on the first request after a period of inactivity you will notice cold start time leaving
+you unsure if you clicked the button before the data suddenly pops in.
 
-For this project the solution I decided on to handle the wait during cold start times is to simply show a modal for a period
-of time that I estimate to be slightly longer than the average cold start time. More about this in the second section of this 
+For this project the solution I decided on to handle the wait during cold start times is to simply show a modal for a
+period
+of time that I estimate to be slightly longer than the average cold start time. More about this in the second section of
+this
 article about the Front End.
 
-From here this article is split into two main parts, [Creating the HTTP Trigger Function](#creating-the-http-trigger-function)
+From here this article is split into two main
+parts, [Creating the HTTP Trigger Function](#creating-the-http-trigger-function)
 and [Creating the Front End in React](#creating-the-front-end-in-react).
-
 
 ## Creating the HTTP Trigger Function
 
@@ -42,7 +54,8 @@ Azure PowerShell</a>
 or <a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli" target="_blank" rel="noreferrer">
 Azure CLI</a>. I'm developing on macOS and tend to lean towards the CLI more out of preference.
 
-We will also need the <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cmacos%2Ccsharp%2Cportal%2Cbash" target="_blank" rel="noreferrer">
+We will also need
+the <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=v4%2Cmacos%2Ccsharp%2Cportal%2Cbash" target="_blank" rel="noreferrer">
 Azure Functions Core Tools</a> installed. Using this tool we can initialize a new function, test it locally
 and publish directly to Azure when ready.
 
@@ -97,7 +110,8 @@ The Go code can be found in the following files.
 touch handlers/handler.go models/loanRequest.go models/loanResponse.go models/payment.go services/calculateLoan.go
 ```
 
-The main code of interest to someone reading this article as an overview of creating Azure Functions with Go is found in `handlers/handler.go` and looks like this.
+The main code of interest to someone reading this article as an overview of creating Azure Functions with Go is found
+in `handlers/handler.go` and looks like this.
 
 ```go
 package main
@@ -154,16 +168,18 @@ func main() {
 There are a few important notes to call out here. First is that this method only accepts
 a POST request, so we want to check for that and return a message to the caller if something else is passed.
 
-For handling <a href="https://developer.mozilla.org/en-US/docs/Glossary/CORS" target="_blank" rel="noreferrer">CORS</a> 
+For handling <a href="https://developer.mozilla.org/en-US/docs/Glossary/CORS" target="_blank" rel="noreferrer">CORS</a>
 I recommend setting the option in the Azure Portal for the function after deployment. CORS can be handled in code, but
-generally speaking with Azure you want to choose handling CORS in code or in Azure, not both. Once the Azure Function is created 
+generally speaking with Azure you want to choose handling CORS in code or in Azure, not both. Once the Azure Function is
+created
 you just have to go to the portal page for your function, then to <em>API > CORS</em> and save your settings there.
 
 In the `main` we need to define that the `loanHandler` method should be called for the route `/api/loans`.
 
 ### Creating the Azure Functions HTTP Trigger
 
-The following specifies that we are using `Custom` (for Go and Rust), that we want the Azure Function to be of type `HttpTrigger`, then the path will be `loans` for this Azure Function (at `/api/loans`) and the access should
+The following specifies that we are using `Custom` (for Go and Rust), that we want the Azure Function to be of
+type `HttpTrigger`, then the path will be `loans` for this Azure Function (at `/api/loans`) and the access should
 be `anonymous`.
 
 ```bash
@@ -171,7 +187,7 @@ func new -l Custom -t HttpTrigger -n loans -a anonymous
 ```
 
 This will have created a new directory in the project called `loans` with a file called `function.json`.
-The example listed below is the default except I removed `get` from the methods because the Azure Function only 
+The example listed below is the default except I removed `get` from the methods because the Azure Function only
 accepts a `POST` request.
 
 ```json
@@ -243,8 +259,10 @@ func start
 ```
 
 In the configuration following my example the port will be random high numbered port on localhost, for example `:64731`.
-The console messages will mention `:7071` but that is not the port the Azure Function runs on for local testing in my experience. It will be
-mentioned on another line in the output telling you the *real* port. I'm pretty certain that the local testing port can be hard coded,
+The console messages will mention `:7071` but that is not the port the Azure Function runs on for local testing in my
+experience. It will be
+mentioned on another line in the output telling you the *real* port. I'm pretty certain that the local testing port can
+be hard coded,
 but I did not look into it any further.
 
 Here is an example of what that output looks like on my machine.
@@ -282,7 +300,7 @@ With the Azure Function tested and confirmed working locally, it is time to depl
 
 ### Deployment to Azure Functions
 
-Continuing on with the theme of using the Azure CLI, we'll first need to authenticate with Azure. 
+Continuing on with the theme of using the Azure CLI, we'll first need to authenticate with Azure.
 
 ```bash
 az login
@@ -311,7 +329,8 @@ az storage account create \
 ```
 
 There is one important detail here before publishing. I'm developing on an M1 MacBook Pro and have been compiling
-without OS options for local testing. Before publishing to Azure the binary will need to be compiled for the target OS in Azure, Linux in this case.
+without OS options for local testing. Before publishing to Azure the binary will need to be compiled for the target OS
+in Azure, Linux in this case.
 
 ```bash
 GOOS=linux GOARCH=amd64 go build handlers/handler.go
@@ -357,31 +376,38 @@ Azure Functions have the domain name `func-name.azurewebsites.net`, once publish
 curl -X POST https://loanshark-api.azurewebsites.net/api/loans -d '{"amount": 50000, "rate": 5.5, "term": 12}'
 ```
 
-Great! The Azure Function is published in Azure and confirmed working with a POST request to the public endpoint. You can get the 
-full source code for the Function on <a href="https://github.com/jgnovakdev/loanshark-api" target="_blank" rel="noreferrer">GitHub</a>.
-
+Great! The Azure Function is published in Azure and confirmed working with a POST request to the public endpoint. You
+can get the
+full source code for the Function
+on <a href="https://github.com/jgnovakdev/loanshark-api" target="_blank" rel="noreferrer">GitHub</a>.
 
 ## Creating the Front End in React
 
 I chose <a href="https://react.dev/" target="_blank" rel="noreferrer">React</a> for the Front End because the app I have
-in mind is the definition of an SPA or "Single Page Application". I'm also going to use <a href="https://redux-toolkit.js.org/" target="_blank" rel="noreferrer">Redux Toolkit</a>
-and <a href="https://tailwindcss.com" target="_blank" rel="noreferrer">Tailwind CSS</a> as two libraries to help simplify the state and CSS respectively.
+in mind is the definition of an SPA or "Single Page Application". I'm also going to
+use <a href="https://redux-toolkit.js.org/" target="_blank" rel="noreferrer">Redux Toolkit</a>
+and <a href="https://tailwindcss.com" target="_blank" rel="noreferrer">Tailwind CSS</a> as two libraries to help
+simplify the state and CSS respectively.
 
 ### Handling State
 
 Having the entire app in a single file is pretty straight forward, but I wanted to break the app into smaller pieces
 with each responsible for rendering the bits that is supposed to handle. Some things like the payment schedule table
-shouldn't even appear unless there is data to show, which is also a simple task in a single file React app. 
+shouldn't even appear unless there is data to show, which is also a simple task in a single file React app.
 
-The tricky issue for me with React has been the concept described in the excellent <a href="https://react.dev/learn/thinking-in-react" target="_blank" rel="noreferrer">
-Thinking in React</a> tutorial from the official documentation. For this project I reached for <a href="https://redux-toolkit.js.org/" target="_blank" rel="noreferrer">Redux Toolkit</a>
+The tricky issue for me with React has been the concept described in the
+excellent <a href="https://react.dev/learn/thinking-in-react" target="_blank" rel="noreferrer">
+Thinking in React</a> tutorial from the official documentation. For this project I reached
+for <a href="https://redux-toolkit.js.org/" target="_blank" rel="noreferrer">Redux Toolkit</a>
 and gave it a try to handle state in a way that is easier for me to think about.
 
-The concept is to define pieces of state in a *store* and provide a way that components use to either get or set a piece of state in a consistent way. Let's look at this piece by piece.
+The concept is to define pieces of state in a *store* and provide a way that components use to either get or set a piece
+of state in a consistent way. Let's look at this piece by piece.
 
 ### Interface and initialState
 
-Starting with an interface called `LoanState`, we define a piece of state for each thing that components in the app need to either read or write to.
+Starting with an interface called `LoanState`, we define a piece of state for each thing that components in the app need
+to either read or write to.
 
 ```typescript
 interface LoanState {
@@ -398,7 +424,8 @@ interface LoanState {
 }
 ```
 
-We also need an `initialState` that the app will have on the first load to provide some good defaults and avoid bad behavior from a piece of state being `undefined`.
+We also need an `initialState` that the app will have on the first load to provide some good defaults and avoid bad
+behavior from a piece of state being `undefined`.
 
 ```typescript
 const initialState: LoanState = {
@@ -471,7 +498,8 @@ export const {
     setRequest,
     setResponse,
     setPayments,
-    setPage} = loanSlice.actions;
+    setPage
+} = loanSlice.actions;
 
 const rootReducer = combineReducers({
     loan: loanSlice.reducer,
@@ -490,20 +518,24 @@ export const store = configureStore({
 When we just want to read a piece of state in a component, all we need to do now is make it a const
 at the beginning of the component that reads from `RootState` for the property. Here is an example
 from the PaymentTable that needs two pieces of state to read, `payments` and `pageNumber`. We'll do this
-using the <a href="https://react-redux.js.org/api/hooks#useselector" target="_blank" rel="noreferrer">useSelector</a> method.
+using the <a href="https://react-redux.js.org/api/hooks#useselector" target="_blank" rel="noreferrer">useSelector</a>
+method.
 
 ```typescript
 const PaymentTable = () => {
     const payments = useSelector((state: RootState) => state.loan.payments);
     const pageNumber = useSelector((state: RootState) => state.loan.page);
-    
+
     // ... the rest of the component code
 }
 ```
 
-*Setting* state will be done with <a href="https://react-redux.js.org/api/hooks#usedispatch" target="_blank" rel="noreferrer">useDispatch</a>.
-In this app only one component really sets state, and that is the `LoanForm` which is done like the example below. Note that any time we are setting
-a new piece of state it is wrapped in `dispatch()`, for example in the method that sets the state for a loan response from the server.
+*Setting* state will be done
+with <a href="https://react-redux.js.org/api/hooks#usedispatch" target="_blank" rel="noreferrer">useDispatch</a>.
+In this app only one component really sets state, and that is the `LoanForm` which is done like the example below. Note
+that any time we are setting
+a new piece of state it is wrapped in `dispatch()`, for example in the method that sets the state for a loan response
+from the server.
 
 ```typescript
 const dispatch = useDispatch();
@@ -536,7 +568,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
 ```
 
-Here is the full code for `loanStore` now that you have a little more context on what it is for and how it is used in Loan Shark.
+Here is the full code for `loanStore` now that you have a little more context on what it is for and how it is used in
+Loan Shark.
 
 ```typescript
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
@@ -620,7 +653,8 @@ export const {
     setRequest,
     setResponse,
     setPayments,
-    setPage} = loanSlice.actions;
+    setPage
+} = loanSlice.actions;
 
 const rootReducer = combineReducers({
     loan: loanSlice.reducer,
@@ -639,15 +673,15 @@ export const store = configureStore({
 In a previous version of this app that I wrote in .NET 7 with Vue.js my wife pointed out the obvious
 to me that it is a bad user experience to see 360 rows of data for something like a 30-year mortgage.
 She works with financial data for a living, and I value that helpful feedback from someone who looks
-at numbers all day. 
+at numbers all day.
 
 After having a think about it, the most useful amount of data per page for something like a loan calculator
-is to have each page represent one year worth of payments, or twelve rows. 
+is to have each page represent one year worth of payments, or twelve rows.
 
 If there is nothing in `payments`, then it is just an empty array which will cause the component to not render
 as it is checking for the length of the `payments` array to show something.
 
-If there is something in `payments`, the helper function `chunkArray` will handle grabbing a section that from the 
+If there is something in `payments`, the helper function `chunkArray` will handle grabbing a section that from the
 `payments` array that represents the rows for that page. For example on page 2, the elements we want back to display
 on the table would be elements 12 through 23 (displayed as rows 13 through 24).
 
@@ -670,7 +704,8 @@ const chunkArray = (array: Payment[], size: number) => {
 ```
 
 In the `return` portion of `PaymentTable` the rows are displayed by first determining if there are any payments in the
-`payments` array, and if there are we can call `getPaginatedPayments()` to grab the 12 payments that should appear in the
+`payments` array, and if there are we can call `getPaginatedPayments()` to grab the 12 payments that should appear in
+the
 table rows for this page/year.
 
 ```typescript jsx
@@ -710,20 +745,28 @@ return (
 
 ### Handling slower responses during cold start
 
-As I mentioned earlier one of the issues to address with this decoupled architecture is that there will be a delayed response
-from the Azure Function every time there has been enough inactivity that a cold start is required on the next `POST` to the endpoint.
+As I mentioned earlier one of the issues to address with this decoupled architecture is that there will be a delayed
+response
+from the Azure Function every time there has been enough inactivity that a cold start is required on the next `POST` to
+the endpoint.
 
-Delaying the response until the promise completes only works when there is actually a cold start that needs to happen. That
-would show a modal overlay just long enough to let the user know that something is happening and then the data is populated.
+Delaying the response until the promise completes only works when there is actually a cold start that needs to happen.
+That
+would show a modal overlay just long enough to let the user know that something is happening and then the data is
+populated.
 
-The problem with that approach is that when the Azure Function is warmed up the response is very fast, causing the modal to be a
+The problem with that approach is that when the Azure Function is warmed up the response is very fast, causing the modal
+to be a
 black flicker that is very unpleasant and makes for a bad user experience.
 
-The solution I decided to try is to show a modal for about `750ms` no matter what the state of the Azure Function is, warmed or cold.
-I'm not 100% sold on this approach yet, it makes the app feel slower than it actually is but a user that doesn't know the details
+The solution I decided to try is to show a modal for about `750ms` no matter what the state of the Azure Function is,
+warmed or cold.
+I'm not 100% sold on this approach yet, it makes the app feel slower than it actually is but a user that doesn't know
+the details
 may not notice or care that much about waiting 3/4 of a second for data.
 
-The component that handles sending the request is `LoanForm`, so we'll put all that logic in the `handleSubmit` function.
+The component that handles sending the request is `LoanForm`, so we'll put all that logic in the `handleSubmit`
+function.
 
 ```typescript
 const LoanForm = () => {
@@ -759,12 +802,13 @@ const LoanForm = () => {
             setIsFetching(false);
         }
     };
-    
+
     // ... other code
 }
 ```
 
-In the return body of `LoanForm` at the beginning we'll do a conditional render of `FetchingModal` if the `isFetching` is `true`.
+In the return body of `LoanForm` at the beginning we'll do a conditional render of `FetchingModal` if the `isFetching`
+is `true`.
 
 ```typescript jsx
 return (
@@ -796,14 +840,19 @@ const FetchingModal = () => {
 }
 ```
 
-
 ### Deploying the React App to Azure
 
-For the Front End I deployed the app to an <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/overview" target="_blank" rel="noreferrer">Azure Static Web App</a> using the Azure Portal. 
-This is a very straight forward process and allows you to point to a GitHub repo during creation that will add a new <a href="https://docs.github.com/en/actions" target="_blank" rel="noreferrer">GitHub Action</a> to 
+For the Front End I deployed the app to
+an <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/overview" target="_blank" rel="noreferrer">Azure
+Static Web App</a> using the Azure Portal.
+This is a very straight forward process and allows you to point to a GitHub repo during creation that will add a
+new <a href="https://docs.github.com/en/actions" target="_blank" rel="noreferrer">GitHub Action</a> to
 deploy changes and update the app on commit to your chosen branch, e.g. main.
 
-If you wanted to deploy from the Azure CLI, that is also pretty straight forward and would use a command like the following taken directly from the <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-cli?tabs=react" target="_blank" rel="noreferrer">Microsoft documentation</a>.
+If you wanted to deploy from the Azure CLI, that is also pretty straight forward and would use a command like the
+following taken directly from
+the <a href="https://learn.microsoft.com/en-us/azure/static-web-apps/get-started-cli?tabs=react" target="_blank" rel="noreferrer">
+Microsoft documentation</a>.
 
 ```bash
 az staticwebapp create \
@@ -817,8 +866,8 @@ az staticwebapp create \
     --login-with-github
 ```
 
-Please feel free to have a look at the full source code for the Front End on <a href="https://github.com/jgnovakdev/loanshark" target="_blank" rel="noreferrer">GitHub</a>.
-
+Please feel free to have a look at the full source code for the Front End
+on <a href="https://github.com/jgnovakdev/loanshark" target="_blank" rel="noreferrer">GitHub</a>.
 
 ## Wrapping up
 

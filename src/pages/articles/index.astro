@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import {getCollection} from "astro:content";
-import ArticleCard from "../../components/articles/ArticleCard.astro";
+import MainCard from "../../components/MainCard.astro";
 
 const articles = await getCollection('articles');
 
@@ -15,7 +15,7 @@ articles.map(article => {
             <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
                 {
                     articles.map((article) => (
-                            <ArticleCard
+                            <MainCard
                                     slug={article.data.path}
                                     logo={article.data.logo}
                                     description={article.data.description}

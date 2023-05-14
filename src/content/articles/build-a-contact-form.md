@@ -4,7 +4,7 @@ title: Building a contact form
 author: Jeremy Novak
 description: Building a Contact Form for my Portfolio site
 date: May 9th 2023
-path: build-a-contact-form
+path: 'articles/build-a-contact-form'
 logo: https://jgnportfoliostorage.blob.core.windows.net/portfolio/email-circle-logo.svg
 ---
 
@@ -14,56 +14,77 @@ One of the really great things about <a href="https://astro.build" target="_blan
 you can mix in <a href="https://react.dev" target="_blank" aria-lable="React">React</a> <em>when you want to</em> and
 otherwise let the build system create lightning-fast static pages for you.
 
-I did start down the path of coding up some vanilla TypeScript to do an 
-old-school contact form inside a `<script></script>` tag but soon realized that 
+I did start down the path of coding up some vanilla TypeScript to do an
+old-school contact form inside a `<script></script>` tag but soon realized that
 the amount of work to make something I was happy with was going to be more than I really wanted to do.
 
-Astro achieves this ability to mix in other JavaScript frameworks like React, 
-Vue and Svelte through something called <a href="https://docs.astro.build/en/concepts/islands/" target="_blank" aria-lable="Astro Islands">Astro Islands</a>.
-There are also some cool options for when the Island loads called 
-<a href="https://docs.astro.build/en/reference/directives-reference/#client-directives" target="_blank" aria-label="Client Directives">Client Directives</a>.
-For example, you could only render the Island component when it is visible on screen with `<MyComponentName client:visible />`.
+Astro achieves this ability to mix in other JavaScript frameworks like React,
+Vue and Svelte through something
+called <a href="https://docs.astro.build/en/concepts/islands/" target="_blank" aria-lable="Astro Islands">Astro
+Islands</a>.
+There are also some cool options for when the Island loads called
+<a href="https://docs.astro.build/en/reference/directives-reference/#client-directives" target="_blank" aria-label="Client Directives">
+Client Directives</a>.
+For example, you could only render the Island component when it is visible on screen
+with `<MyComponentName client:visible />`.
 
-There are two parts to sending email from a form. You need some kind of service 
-that knows how to send email, and you need a form on the client for letting a 
+There are two parts to sending email from a form. You need some kind of service
+that knows how to send email, and you need a form on the client for letting a
 user create the email they want to send.
 
-For the time being, I'm giving the free tier of 
+For the time being, I'm giving the free tier of
 <a href="https://sendgrid.com" target="_blank" aria-lable="SendGrid">SendGrid</a>
-a try. You can check out the 
-<a href="https://docs.sendgrid.com/for-developers/sending-email/quickstart-nodejs" target="_blank" aria-label="SendGrid Quick Start Guide">Quick Start Guide</a>
-for a simplified example of how to use SendGrid to send an email. It requires 
-you to have a domain and to authorize that domain for sending email. I won't 
+a try. You can check out the
+<a href="https://docs.sendgrid.com/for-developers/sending-email/quickstart-nodejs" target="_blank" aria-label="SendGrid Quick Start Guide">
+Quick Start Guide</a>
+for a simplified example of how to use SendGrid to send an email. It requires
+you to have a domain and to authorize that domain for sending email. I won't
 cover that here, if you are interested in trying it the gist is you set some MX records that SendGrid gives you
 in your domain name DNS records and get an API key. The instructions were pretty easy to follow.
 
-I had a good experience creating <a href="https://github.com/jgnovakdev/pwbot-api" target="_blank" aria-label="PWB0T API">PWB0T API</a> 
-on <a href="https://vercel.com/docs/concepts/functions/serverless-functions" target="_blank"  aria-label="Vercel Serverless Functions">Vercel Serverless Functions</a>
-so I went that route again for this <a href="https://github.com/jgnovakdev/mailer-serverless" target="_blank"  aria-label="Mailer Serverless">mailer-serverless</a> function.
+I had a good experience
+creating <a href="https://github.com/jgnovakdev/pwbot-api" target="_blank" aria-label="PWB0T API">PWB0T API</a>
+on <a href="https://vercel.com/docs/concepts/functions/serverless-functions" target="_blank"  aria-label="Vercel Serverless Functions">
+Vercel Serverless Functions</a>
+so I went that route again for
+this <a href="https://github.com/jgnovakdev/mailer-serverless" target="_blank"  aria-label="Mailer Serverless">
+mailer-serverless</a> function.
 
-The Front End component is written in React and fires off a `POST` request to the 
+The Front End component is written in React and fires off a `POST` request to the
 handler on Vercel at `https://theservername/api/mailer`. The mailer-serverless function
 takes care of it from there. I wanted one more feature for this, and that is to add
-some really simple logging to <a href="https://aws.amazon.com/dynamodb/" target="_blank" aria-label="AWS DynamoDB">AWS DynamoDB</a> 
-that I could possibly use later if nothing else to get an idea about the number of messages and how many failures there are.
+some really simple logging to <a href="https://aws.amazon.com/dynamodb/" target="_blank" aria-label="AWS DynamoDB">AWS
+DynamoDB</a>
+that I could possibly use later if nothing else to get an idea about the number of messages and how many failures there
+are.
 
-From here this article is broken up into two sections. [Creating the Vercel Serverless Function](#creating-the-vercel-serverless-function) and [Creating the React Contact Form](#creating-the-react-contact-form)
+From here this article is broken up into two
+sections. [Creating the Vercel Serverless Function](#creating-the-vercel-serverless-function)
+and [Creating the React Contact Form](#creating-the-react-contact-form)
 
 ## Creating the Vercel Serverless Function
 
-The AWS DynamoDB part is very optional, and in reality I did this last after everything was working. For this article though,
-I'll cover it first, so we can move on to the Vercel Serverless function and not have to re-visit the extra code it adds.
+The AWS DynamoDB part is very optional, and in reality I did this last after everything was working. For this article
+though,
+I'll cover it first, so we can move on to the Vercel Serverless function and not have to re-visit the extra code it
+adds.
 
 ### Creating AWS Resources for DynamoDB
 
-The following steps assume you have an AWS Account, that you have installed the <a href="https://aws.amazon.com/cli/" target="_blank" aria-label="AWS CLI">AWS CLI</a>, 
-have created <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-creds.html" target="_blank" aria-label="AWS Access Keys">AWS Access Keys</a> for your
-account, and have run `aws configure` in the CLI. If you are unfamiliar with AWS those things combined are somewhat involved the first time, but I encourage you to check it out.
+The following steps assume you have an AWS Account, that you have installed
+the <a href="https://aws.amazon.com/cli/" target="_blank" aria-label="AWS CLI">AWS CLI</a>,
+have
+created <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/security-creds.html" target="_blank" aria-label="AWS Access Keys">
+AWS Access Keys</a> for your
+account, and have run `aws configure` in the CLI. If you are unfamiliar with AWS those things combined are somewhat
+involved the first time, but I encourage you to check it out.
 
 We don't want to use an account that has any rights to do anything other than read
 and write operations to a specific DynamoDB table from something like a serverless
 function. To address that we'll first create a user that is only for that purpose
-and give it an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html" target="_blank" aria-label="IAM Role">IAM Role</a>. 
+and give it
+an <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html" target="_blank" aria-label="IAM Role">
+IAM Role</a>.
 
 I'm calling mine `jgn-vercel-user` because I'm unlikely to forget what it is for (I hope).
 
@@ -118,7 +139,7 @@ aws iam attach-user-policy --policy-arn arn:aws:iam::<YOUR_ACCOUNT_ID>:policy/jg
 The last piece we will need as far as DynamoDB goes is to create access keys for
 the user `jgn-vercel-user`. We will get an `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
 
-Remember to store these some place where you won't lose them. We'll be using them 
+Remember to store these some place where you won't lose them. We'll be using them
 as Vercel environment variables here in just a bit.
 
 ```bash
@@ -127,8 +148,8 @@ aws iam create-access-key --user-name jgn-vercel-user
 
 ### Creating the Vercel Serverless Function
 
-We'll be using the <a href="https://www.npmjs.com/package/vercel" target="_blank" aria-label="Vercel CLI">Vercel CLI</a> 
-which is installed with <a href="https://www.npmjs.com/" target="_blank" aria-lable="npm">npm</a>. 
+We'll be using the <a href="https://www.npmjs.com/package/vercel" target="_blank" aria-label="Vercel CLI">Vercel CLI</a>
+which is installed with <a href="https://www.npmjs.com/" target="_blank" aria-lable="npm">npm</a>.
 
 If you haven't already installed it, you can do so with
 
@@ -149,7 +170,7 @@ We don't need that much to get started, just an `npm init`.
 npm init -y
 ```
 
-Vercel Serverless functions work out of the `api` directory, so we just have to 
+Vercel Serverless functions work out of the `api` directory, so we just have to
 create a new TypeScript file *with the same name* that we want the route to be.
 For example, I want the route to be `/api/mailer`, so I need to name my file
 `mailer.ts`.
@@ -395,7 +416,7 @@ vercel dev --listen 5000
 ```
 
 If you have followed along to this point repeating all the steps, hopefully you have
-a working Vercel serverless function running on your machine. 
+a working Vercel serverless function running on your machine.
 
 ### Configuring CORS
 
@@ -414,7 +435,11 @@ Vercel serverless functions with Next.js.
   "routes": [
     {
       "src": "/api/.*",
-      "methods": ["GET", "POST", "OPTIONS"],
+      "methods": [
+        "GET",
+        "POST",
+        "OPTIONS"
+      ],
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -452,7 +477,8 @@ module.exports = allowCors(handler);
 
 This worked fine for me for another project but my personal Portfolio didn't seem to get
 along with this way of setting the CORS headers as well and works better with the
-`vercel.json` CORS option. If you struggle with this I'd recommend giving the <a href="https://vercel.com/guides/how-to-enable-cors" target="_blank" aria-lable="Vercel Documentation">official
+`vercel.json` CORS option. If you struggle with this I'd recommend giving
+the <a href="https://vercel.com/guides/how-to-enable-cors" target="_blank" aria-lable="Vercel Documentation">official
 document from Vercel</a> a read and see if it has an answer for your situation.
 
 ### Deploying to Vercel
@@ -466,11 +492,12 @@ vercel deploy
 That concludes the first half of the article talking about the Vercel Serverless Function
 written in TypeScript for sending email.
 
-You can view the full source code for this project on <a href="https://github.com/jgnovakdev/mailer-serverless" target="_blank" aria-label="GitHub">GitHub</a>.
+You can view the full source code for this project
+on <a href="https://github.com/jgnovakdev/mailer-serverless" target="_blank" aria-label="GitHub">GitHub</a>.
 
 ## Creating the React Contact Form
 
-The React side is made up a few parts. Some state for things that the form needs to work on, simple validation methods, 
+The React side is made up a few parts. Some state for things that the form needs to work on, simple validation methods,
 and the method that actually takes the values in the form and sends a `POST` to the Vercel function to send the email.
 
 ### State
@@ -503,7 +530,7 @@ function EmailBlock() {
 
 ### Validation
 
-The validation functions are very simple. These are called `onBlur` to just check that 
+The validation functions are very simple. These are called `onBlur` to just check that
 the thing the user put in is valid by some intentionally loose rules and puts an
 error message into the errors to display if something is wrong with it. For example
 if the email address is not valid, display a message so they know it needs to be fixed.
@@ -511,59 +538,59 @@ if the email address is not valid, display a message so they know it needs to be
 I intentionally don't check the phone number, and am okay with the name and message
 values being anything other than empty. The form is meant to be easy to use, and I don't
 want to hassle people about rigid requirements to send a message. If some emails
-are junk, that's fine. 
+are junk, that's fine.
 
 ```typescript jsx
     const validateName = (name: string) => {
-        const errorsLocal = {...errors};
-        if (name.trim().length <= 0) {
-            errorsLocal.name = "Please share your name";
-            setErrors(errorsLocal);
-            setNameValid(false);
-            return false;
-        } else {
-            errorsLocal.name = "";
-            setErrors(errorsLocal);
-            setName(name);
-            setNameValid(true);
-            return true;
-        }
+    const errorsLocal = {...errors};
+    if (name.trim().length <= 0) {
+        errorsLocal.name = "Please share your name";
+        setErrors(errorsLocal);
+        setNameValid(false);
+        return false;
+    } else {
+        errorsLocal.name = "";
+        setErrors(errorsLocal);
+        setName(name);
+        setNameValid(true);
+        return true;
     }
+}
 
-    const validateEmail = (email: string) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const valid = emailRegex.test(email);
+const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const valid = emailRegex.test(email);
 
-        const errorsLocal = {...errors};
+    const errorsLocal = {...errors};
 
-        if (!valid) {
-            errorsLocal.email = "Please use a valid email address";
-            setErrors(errorsLocal);
-            setEmailValid(false);
-            return false;
-        } else {
-            errorsLocal.email = "";
-            setErrors(errorsLocal);
-            setEmail(email);
-            setEmailValid(true);
-            return true;
-        }
+    if (!valid) {
+        errorsLocal.email = "Please use a valid email address";
+        setErrors(errorsLocal);
+        setEmailValid(false);
+        return false;
+    } else {
+        errorsLocal.email = "";
+        setErrors(errorsLocal);
+        setEmail(email);
+        setEmailValid(true);
+        return true;
     }
+}
 
-    const validateMessage = (message: string) => {
-        const errorsLocal = {...errors};
-        setMessage(message);
+const validateMessage = (message: string) => {
+    const errorsLocal = {...errors};
+    setMessage(message);
 
-        if (message.trim().length <= 0) {
-            errorsLocal.message = "Please share your message";
-            setErrors(errorsLocal);
-            setMessageValid(false);
-        } else {
-            errorsLocal.message = "";
-            setErrors(errorsLocal);
-            setMessageValid(true);
-        }
+    if (message.trim().length <= 0) {
+        errorsLocal.message = "Please share your message";
+        setErrors(errorsLocal);
+        setMessageValid(false);
+    } else {
+        errorsLocal.message = "";
+        setErrors(errorsLocal);
+        setMessageValid(true);
     }
+}
 ```
 
 ### Closing the Modal
@@ -582,12 +609,12 @@ form with nothing in it and would have to type it all again to send another mess
 
 ```typescript jsx
     const handleClose = () => {
-        setShowModal(false);
-        setName("");
-        setEmail("");
-        setPhone("");
-        setMessage("");
-    }
+    setShowModal(false);
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+}
 ```
 
 ### Submitting the Email
@@ -649,7 +676,7 @@ writing it works well enough to give to users to let them start sending me messa
 
 ### The JSX
 
-If you check out the `onBlur` and `onChange` you'll notice that I'm doing a validation on 
+If you check out the `onBlur` and `onChange` you'll notice that I'm doing a validation on
 each. This was because in my testing using AutoFill from my browser I was getting behavior
 that I didn't like. Namely, the inputs that were autofilled were never validated, so
 the "Send Message" button didn't light up (become enabled) until the user clicks into
@@ -663,7 +690,7 @@ looks good and ready to send. "SENDING..." while the `handleSubmit` code is doin
 
 The modal is simply showing or not showing. When showing it covers the entire screen
 with a semi-transparent black background and shows a dialogue looking frame letting
-the user know the message was sent and an "OK" button to close it. 
+the user know the message was sent and an "OK" button to close it.
 
 As of the time of this writing I haven't moved the Tailwind CSS classes out of the JSX
 yet into the `style.css` with a sensible name. I do love working with Tailwind because
@@ -739,7 +766,8 @@ it is so declarative in styling a page, but when it runs off the page it does lo
             </div>
 
             <div className="my-6">
-                <button type="submit" disabled={!nameValid || !emailValid || !messageValid} className="black-button" aria-label="Send Message">
+                <button type="submit" disabled={!nameValid || !emailValid || !messageValid} className="black-button"
+                        aria-label="Send Message">
                     <svg className="w-[1.25em]" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                          viewBox="0 0 512 512">
                         <path
@@ -779,14 +807,16 @@ it is so declarative in styling a page, but when it runs off the page it does lo
 
         </form>
     </div>
-    );
+);
 ```
 
 ## Wrapping up
 
 That concludes this article. I hope you enjoyed reading it and maybe picked up a thing or two. Maybe it gave
-you some ideas for your own projects. 
+you some ideas for your own projects.
 
-If you are interested you can check out the source code on <a href="https://github.com/jgnovakdev/jgnovak.com/blob/main/src/components/react/EmailBlock.tsx" target="_blank" aria-label="GitHub">GitHub</a>.
+If you are interested you can check out the source code
+on <a href="https://github.com/jgnovakdev/jgnovak.com/blob/main/src/components/react/EmailBlock.tsx" target="_blank" aria-label="GitHub">
+GitHub</a>.
 
 -JGN

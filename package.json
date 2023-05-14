@@ -14,7 +14,17 @@
     "@astrojs/react": "^2.1.3",
     "@astrojs/sitemap": "^1.3.1",
     "@astrojs/tailwind": "^3.1.2",
+    "@snowpack/plugin-sass": "^1.4.0",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
     "astro": "^2.4.1",
-    "astro-icon": "^0.8.0"
+    "astro-icon": "^0.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.2.8"
   }
 }

@@ -1,17 +1,17 @@
 ---
 import {getCollection} from "astro:content";
-import ArticleCard from "../articles/ArticleCard.astro";
+import MainCard from "../MainCard.astro";
 const articles = await getCollection('articles');
 const sortedArticles = articles.sort((a, b) => b.data.date - a.data.date);
 const latestArticles = sortedArticles.slice(0, 3);
 ---
 
-<section class="">
+<section>
     <h2>Recent Articles</h2>
     <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         {
             latestArticles.map((article) => (
-                    <ArticleCard
+                    <MainCard
                             slug={article.data.path}
                             logo={article.data.logo}
                             description={article.data.description}
