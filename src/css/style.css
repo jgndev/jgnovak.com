@@ -221,7 +221,6 @@
     }
 
     .contact-form-right {
-        /*@apply col-span-1 md:col-span-4 flex my-10 p-10 bg-zinc-800/20 rounded-md shadow-md;*/
         @apply flex md:p-12 2xl:col-span-5 2xl:px-12 2xl:py-8 my-10 bg-zinc-800/20 rounded-md shadow-lg;
     }
 
