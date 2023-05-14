@@ -358,7 +358,7 @@ export default function ContactForm() {
                             <button
                                 type="submit"
                                 disabled={!nameValid || !emailValid || !messageValid}
-                                className="w-full md:max-w-[14rem] rounded-md bg-indigo-500 disabled:bg-zinc-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                                className="w-full md:max-w-[14rem] rounded-md bg-indigo-500 border border-indigo-400 disabled:bg-zinc-700 disabled:border-zinc-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                             >
                                 <div className="flex items-center justify-center gap-x-4">
                                     <svg className="w-[1.25em]" xmlns="http://www.w3.org/2000/svg" width="32"
