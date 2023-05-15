@@ -110,23 +110,28 @@ export default function ContactForm() {
         setIsSubmitting(true);
         setShowModal(true);
 
-        const body = {
-            name,
-            email,
-            phone,
-            message
+        const request = {
+            "to": "jeremy@jgnovak.com",
+            "from": "jeremy@jgnovak.com",
+            "subject": `New message from ${name}`,
+            "body": `
+            Name: ${name}
+            Email: ${email}
+            Phone: ${phone} 
+            Message: ${message} 
+            `
         };
 
         try {
-            const response = await fetch("https://mailer-api-mu.vercel.app/api/mailer", {
+            const response = await fetch("https://r2vu70ik83.execute-api.us-east-1.amazonaws.com/sendmail", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(body),
+                body: JSON.stringify(request),
             });
 
-            console.log(response);
+            // console.log(response);
 
             if (response.ok) {
                 // setShowModal(true);
