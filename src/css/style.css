@@ -104,16 +104,16 @@
         @apply p-2 transition-all delay-100 text-zinc-500;
     }
 
-    nav > ul > li > a:hover {
-        @apply text-black dark:text-white;
+    nav > div > ul > li > a:hover {
+        @apply text-white;
     }
 
-    nav > ul > li > a:active {
+    nav > div > ul > li > a:active {
         @apply transition-all delay-100 underline underline-offset-8 text-black dark:text-zinc-50;
     }
 
     footer {
-        @apply mx-2 mb-8 p-4 md:mx-12 2xl:mx-40 md:mt-4 text-sm flex justify-between text-zinc-400 border border-zinc-700/40 rounded-md shadow-md;
+        @apply mx-2 mb-8 px-4 py-6 md:mx-12 2xl:mx-40 md:mt-4 text-sm flex justify-between text-zinc-400 border border-zinc-700/40 rounded-md shadow-md;
     }
 
     .socials {
