@@ -12,7 +12,7 @@ const portfolio = await getCollection('portfolio');
             {
                 portfolio.map((project) => (
                         <MainCard
-                                slug={project.data.shortPath}
+                                slug={project.data.path}
                                 logo={project.data.logo}
                                 description={project.data.description}
                                 title={project.data.title}

@@ -27,10 +27,15 @@ export default function ContactForm() {
 
     function setTime() {
         const date = new Date();
-        const hours = date.getHours();
+        let hours = date.getHours();
         const minutes = date.getMinutes();
         const ampm = hours >= 12 ? 'PM' : 'AM';
-        const formattedTime = hours % 12 + ":" + (minutes < 10 ? "0" : "") + minutes + " " + ampm;
+        if (hours === 0) {
+            hours = 12;
+        } else if (hours > 12) {
+            hours %= 12;
+        }
+        const formattedTime = hours + ":" + (minutes < 10 ? "0" : "") + minutes + " " + ampm;
         setCurrentTime(formattedTime)
     }
 

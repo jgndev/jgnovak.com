@@ -1,6 +1,13 @@
 ---
+import {NavItem} from "../interfaces/types";
 const pathName = new URL(Astro.request.url).pathname;
 const currentPath = pathName.slice(1);
+
+const navItems: Array<NavItem> = [
+    {title: "projects", url: "/projects"},
+    {title: "articles", url: "/articles"},
+    {title: "resume", url: "/resume"}
+]
 ---
 <nav>
     <a href="/" aria-label="Home">
