@@ -130,13 +130,13 @@ const currentPath = pathName.slice(1);
         const navbarClose = document.getElementById('navbar-close');
         const navbarOverlay = document.getElementById('navbar-overlay');
 
-        navbarToggle.addEventListener('click', function () {
-            navbarOverlay.classList.add('flex');
-            navbarOverlay.classList.remove('hidden');
+        navbarToggle!.addEventListener('click', function () {
+            navbarOverlay!.classList.add('flex');
+            navbarOverlay!.classList.remove('hidden');
         });
 
-        navbarClose.addEventListener('click', function () {
-            navbarOverlay.classList.add('hidden');
+        navbarClose!.addEventListener('click', function () {
+            navbarOverlay!.classList.add('hidden');
         });
     });
 </script>
