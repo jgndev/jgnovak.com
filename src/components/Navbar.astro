@@ -4,10 +4,13 @@ const pathName = new URL(Astro.request.url).pathname;
 const currentPath = pathName.slice(1);
 
 const navItems: Array<NavItem> = [
-    {title: "projects", url: "/projects"},
-    {title: "articles", url: "/articles"},
-    {title: "resume", url: "/resume"}
+    {title: "projects", url: "/projects", aria: "Projects"},
+    {title: "articles", url: "/articles", aria: "Articles"},
+    {title: "resume", url: "/resume", aria: "Resume"},
+    {title: "contact", url: "/contact", aria: "Contact"}
 ]
+
+console.log(currentPath);
 ---
 <nav>
     <a href="/" aria-label="Home">
@@ -24,35 +27,15 @@ const navItems: Array<NavItem> = [
     <!-- Desktop Links -->
     <div class="hidden md:block">
         <ul>
-            <li>
-                <a
-                        class={currentPath === "projects" ? "active" : ""}
-                        href="/projects"
-                        title="Projects"
-                        aria-label="Projects">Projects
-                </a>
-            </li>
-            <li>
-                <a
-                        class={currentPath === "articles" ? "active" : ""}
-                        href="/articles"
-                        title="Articles"
-                        aria-label="Articles">Articles
-                </a>
-            </li>
-            <li>
-                <a
-                        class={currentPath === "resume" ? "active" : ""}
-                        href="/resume"
-                        title="Resume"
-                        aria-label="Resume">Resume
-                </a>
-            </li>
-            <li>
-                <a class="contact" href="/contact" title="Contact" aria-label="Contact">
-                    Contact
-                </a>
-            </li>
+            {
+                navItems.map(({title, url, aria}) => (
+                        <li>
+                            <a class={currentPath === title ? "active" : ""}
+                               href={url}
+                               aria-label={aria}>{title}</a>
+                        </li>
+                ))
+            }
         </ul>
     </div>
     <!-- Mobile Nav Button -->

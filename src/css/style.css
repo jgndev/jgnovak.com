@@ -92,9 +92,7 @@
     }
 
     nav {
-        /*@apply sticky z-50 top-0 mx-2 mt-2 p-4 md:mx-12 2xl:mx-40 md:mt-4 flex items-center justify-between border border-zinc-700/40 backdrop-blur-xl rounded-md shadow-md;*/
-        /*@apply sticky z-50 top-0 mx-2 py-4 px-6 md:mx-12 2xl:mx-40 flex items-center justify-between border border-zinc-700/20 backdrop-blur-xl rounded-md shadow-md;*/
-        @apply sticky z-50 top-0 py-4 px-6 md:px-16 2xl:px-44 flex items-center justify-between border-2 border-b border-zinc-700/20 bg-zinc-900 backdrop-blur-2xl bg-opacity-70 shadow-md;
+        @apply sticky z-50 top-0 py-4 px-6 md:px-16 2xl:px-44 flex items-center justify-between border-b border-zinc-700/50 bg-zinc-900 backdrop-blur-2xl bg-opacity-70 shadow-md;
     }
 
     nav > div > ul {
@@ -102,15 +100,15 @@
     }
 
     nav > div > ul > li > a {
-        @apply p-2 transition-all delay-100 text-zinc-500;
+        @apply uppercase p-2 transition-all delay-100 text-zinc-400;
     }
 
     nav > div > ul > li > a:hover {
         @apply text-white;
     }
 
-    nav > div > ul > li > a:active {
-        @apply transition-all delay-100 underline underline-offset-8 text-black dark:text-zinc-50;
+    nav > div > ul > li > a.active {
+        @apply underline underline-offset-8 text-white;
     }
 
     footer {
