@@ -12,7 +12,7 @@ const latestArticles = sortedArticles.slice(0, 3);
         {
             latestArticles.map((article) => (
                     <MainCard
-                            slug={article.data.path}
+                            slug={`/articles/${article.data.shortPath}`}
                             logo={article.data.logo}
                             description={article.data.description}
                             title={article.data.title}

@@ -12,7 +12,7 @@ const latestProjects = sortedProjects.slice(0, 3);
         {
             latestProjects.map((project) => (
                     <MainCard
-                            slug={project.data.path}
+                            slug={`/projects/${project.data.shortPath}`}
                             logo={project.data.logo}
                             description={project.data.description}
                             title={project.data.title}

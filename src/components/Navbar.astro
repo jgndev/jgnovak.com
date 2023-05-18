@@ -9,8 +9,6 @@ const navItems: Array<NavItem> = [
     {title: "resume", url: "/resume", aria: "Resume"},
     {title: "contact", url: "/contact", aria: "Contact"}
 ]
-
-console.log(currentPath);
 ---
 <nav>
     <a href="/" aria-label="Home">
@@ -30,7 +28,7 @@ console.log(currentPath);
             {
                 navItems.map(({title, url, aria}) => (
                         <li>
-                            <a class={currentPath === title ? "active" : ""}
+                            <a class={currentPath.includes(title) ? "active" : ""}
                                href={url}
                                aria-label={aria}>{title}</a>
                         </li>
