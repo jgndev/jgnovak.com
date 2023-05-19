@@ -136,11 +136,11 @@
     }
 
     p {
-        @apply py-2 min-w-[18rem] md:max-w-[35rem] xl:max-w-[45rem] 2xl:max-w-[65rem];
+        @apply py-3;
     }
 
     p > a {
-        @apply font-semibold text-white transition-all ease-in-out duration-75;
+        @apply font-semibold text-white transition-all ease-in-out;
     }
 
     p > a:hover {
