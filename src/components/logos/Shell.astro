@@ -1,10 +1,10 @@
 ---
-const {text} = Astro.props;
+const {text, width} = Astro.props;
 ---
 
 <div class="brand-icon-block">
     <svg
-            class="w-12"
+            class={width || "w-12"}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16">
         <path

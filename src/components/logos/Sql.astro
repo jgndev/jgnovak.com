@@ -1,9 +1,11 @@
 ---
-const {text} = Astro.props;
+const {text, width} = Astro.props;
 ---
 
 <div class="brand-icon-block p-2">
-    <svg class="w-12" viewBox="-8.78 0 70 70" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg">
+    <svg class={width || "w-12"} viewBox="-8.78 0 70 70" xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.w3.org/2000/svg">
         <metadata>
             <rdf:RDF>
                 <cc:Work>
