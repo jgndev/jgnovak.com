@@ -1,5 +1,5 @@
 ---
-import {NavItem} from "../interfaces/types";
+import type { NavItem } from "../interfaces/types";
 const pathName = new URL(Astro.request.url).pathname;
 const currentPath = pathName.slice(1);
 
@@ -10,7 +10,7 @@ const navItems: Array<NavItem> = [
     {title: "contact", url: "/contact", aria: "Contact"}
 ]
 ---
-<nav>
+<nav class="sticky z-50 top-0 py-4 px-6 md:px-16 2xl:px-44 flex items-center justify-between border-b border-zinc-700/50 bg-zinc-900 backdrop-blur-2xl bg-opacity-70 shadow-md">
     <a href="/" aria-label="Home">
         <!-- Site Logo -->
         <svg class="site-logo" viewBox="0 0 421 430" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,11 +24,15 @@ const navItems: Array<NavItem> = [
     </a>
     <!-- Desktop Links -->
     <div class="hidden md:block">
-        <ul>
+        <ul class="m-2 flex space-x-6 justify-end">
             {
                 navItems.map(({title, url, aria}) => (
                         <li>
-                            <a class={currentPath.includes(title) ? "active" : ""}
+                            <a class={
+                                currentPath.includes(title) ? 
+                                "active uppercase p-2 transition-all delay-75 hover:text-white" 
+                                : "uppercase p-2 transition-all delay-75 hover:text-white"
+                            }
                                href={url}
                                aria-label={aria}>{title}</a>
                         </li>
